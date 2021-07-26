@@ -7,6 +7,39 @@ import { makeStyles } from "@material-ui/core/styles";
 import {  Button } from '@material-ui/core';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import Modal from '@material-ui/core/Modal';
+import { selectOpenRecipe, selectRecipe } from '../../features/recipeSlice';
+import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import CardRecipe from '../CardRecipe/CardRecipe';
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  
+  function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+
+
+  const useStylesModal = makeStyles((theme) => ({
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
+
 const useStyles = makeStyles({
     gridContainer: {
         marginLeft:'auto',
@@ -16,7 +49,15 @@ const useStyles = makeStyles({
 function Recipes() {
     const [food,setFood]=useState([]);
     const [currentPage, setCurrentPage] = useState(0);
+    const openModal = useSelector(selectRecipe);
+    const selectedRecipe = useSelector(selectOpenRecipe);
+    console.log(selectedRecipe)
+    const dispatch = useDispatch();
+    console.log(openModal)
     const classes = useStyles();
+    const classesModal = useStylesModal();
+    const [modalStyle] = useState(getModalStyle);
+  
     const newPage = (direction) => {
       if (direction === "next") {
         setCurrentPage(currentPage + 10);
@@ -51,7 +92,7 @@ function Recipes() {
                     {food.map((item,index)=>(
                         
                            <Grid key={index} item xs={12} sm={6} md={2}>
-                            <CardCreated item={item} />
+                            <CardRecipe title={item.title} ingredients={item.ingredients} time={item.time} prep_mode={item.preparation_mode} />
                         </Grid>
                        
                     ))}
@@ -105,7 +146,23 @@ function Recipes() {
               {food.length} {food.length === 1 ? "Recipe" : "Recipes"}
     </span>
     </div> */}
+    {openModal && ( 
+    <Modal
+        open={true}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+        <div style={modalStyle} className={classesModal.paper}>
+      <CardCreated title={selectedRecipe.title} ingredients={selectedRecipe.ingredients} time={selectedRecipe.time} prep_mode={selectedRecipe?.prep_mode} />
+     
+      {/* <p id="simple-modal-description">
+        {selectedRecipe?.preparation_mode}
+      </p> */}
     
+    </div>
+      </Modal>
+      )}
+   
         </div>
     )
 }

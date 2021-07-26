@@ -11,6 +11,7 @@ import {
   Route,
 } from "react-router-dom";
 import Recipes from './components/Recipes/Recipes';
+import ModalPage from './components/ModalPage/ModalPage';
 function App() { 
   const [food,setFood]=useState([]);
   useEffect(()=>{
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/recipes">
          <Recipes />
         </Route>
+        <Route exact path="/recipes/:id" component={ModalPage}/>
    </Switch>
      
        
