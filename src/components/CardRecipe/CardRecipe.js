@@ -5,11 +5,35 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import { red } from '@material-ui/core/colors';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ViewModuleIcon from '@material-ui/icons/ViewModule';
-import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { openModal, selectRecipeToShow } from '../../features/recipeSlice';
+import Modal from '@material-ui/core/Modal';
+import CardCreated from '../CardCreated/CardCreated';
+import CloseSharpIcon from '@material-ui/icons/CloseSharp';
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  
+  function getModalStyle() {
+    const top = 50;
+    const left = 50;
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+  const useStylesModal = makeStyles((theme) => ({
+    paper: {
+      position: 'absolute',
+      width: 400,
+      backgroundColor: theme.palette.background.paper,
+      border: '2px solid #000',
+      boxShadow: theme.shadows[5],
+      padding: theme.spacing(2, 4, 3),
+    },
+  }));
+
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft:'auto',
@@ -34,11 +58,15 @@ const useStyles = makeStyles((theme) => ({
 
 function CardRecipe({title,ingredients,time,prep_mode}) {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const addRecipeForModal = () => {
-    dispatch(openModal());
-    dispatch(selectRecipeToShow(({title,ingredients,time,prep_mode})))
-  }
+  const classesModal = useStylesModal();
+  const [modalStyle] = useState(getModalStyle);
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
     return (
       <Card className={classes.root}>
       <CardHeader
@@ -48,14 +76,29 @@ function CardRecipe({title,ingredients,time,prep_mode}) {
           </Avatar>
         }
         action={
-          <IconButton onClick={addRecipeForModal} aria-label="settings">
+          <IconButton onClick={handleOpen} aria-label="settings">
             <ViewModuleIcon />
           </IconButton>
         }
         title={title}
         subheader={`${time} min`}
       />
-
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="simple-modal-title"
+        aria-describedby="simple-modal-description"
+      >
+         <div style={modalStyle} className={classesModal.paper}>
+         {/* <button onClick={handleClose}>Close</button> */}
+         <div  style={{display:'flex',justifyContent:'flex-end'}}>
+         <IconButton onClick={handleClose} aria-label="settings">
+            <CloseSharpIcon />
+          </IconButton></div>
+         <CardCreated title={title} ingredients={ingredients} time={time} prep_mode={prep_mode} />
+    
+    </div>
+      </Modal>
     </Card>
     )
 }

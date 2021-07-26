@@ -8,10 +8,6 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { useDispatch } from 'react-redux';
-import CloseSharpIcon from '@material-ui/icons/CloseSharp';
-import { closeModal, openModal, selectRecipeToShow } from '../../features/recipeSlice';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft:'auto',
@@ -32,18 +28,8 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
 }));
- 
-
 function CardCreated({title,ingredients,time,prep_mode}) {
   const classes = useStyles();
-  const [expanded, setExpanded] = useState(false);
-  const dispatch = useDispatch();
-  const addRecipeForModal = () => {
-    dispatch(openModal());
-    
-   dispatch(selectRecipeToShow(({title,ingredients,time,prep_mode})))
-  }
-
     return (
       <Card className={classes.root}>
       <CardHeader
@@ -53,8 +39,8 @@ function CardCreated({title,ingredients,time,prep_mode}) {
           </Avatar>
         }
         action={
-          <IconButton onClick={()=>dispatch(closeModal())} aria-label="settings">
-            <CloseSharpIcon />
+          <IconButton aria-label="settings">
+           
           </IconButton>
         }
         title={title}

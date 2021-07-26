@@ -49,6 +49,7 @@ function RecipeForm() {
             onChange={(e)=> setInputIngredients(e.target.value)}
             />
             <input type="number"
+            min="0"
             placeholder="Time"
             name="time"
             className="recipe__input"
