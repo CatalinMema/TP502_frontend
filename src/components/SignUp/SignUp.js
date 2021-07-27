@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setAuthTrue } from '../../features/authSlice';
 
 function Copyright() {
   return (
@@ -28,9 +31,10 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    height: '80vh',
     display: 'flex',
     flexDirection: 'column',
+    justifyContent:'center',
     alignItems: 'center',
   },
   avatar: {
@@ -47,9 +51,36 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-  const classes = useStyles();
+    const dispatch = useDispatch();
+    const [email,setEmail]=useState(undefined);
+    const [password,setPassword]=useState(undefined);
+    const classes = useStyles();
 
+  const signup = async (user) => {
+    const result = await axios.post("/authentication/signup",user);
+    return result;
+}
+
+const handleOnChange = (e) =>{
+    if(e.target.name==='email'){
+        setEmail(e.target.value);
+    }
+    else{
+        setPassword(e.target.value)
+    }
+}
+
+const handleSignUp = async (e) => {
+    
+    e.preventDefault();
+    const response = await signup({email,password});
+    if(response.data.auth){
+        dispatch(setAuthTrue());
+    }
+    console.log(response)
+}
   return (
+      <div className="signin_page">
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
@@ -61,29 +92,6 @@ export default function SignUp() {
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="fname"
-                name="firstName"
-                variant="outlined"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                autoComplete="lname"
-              />
-            </Grid>
             <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -93,6 +101,7 @@ export default function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleOnChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -105,21 +114,18 @@ export default function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handleOnChange}
               />
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
-              />
-            </Grid>
+            
           </Grid>
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color="default"
             className={classes.submit}
+            onClick={handleSignUp}
           >
             Sign Up
           </Button>
@@ -136,5 +142,6 @@ export default function SignUp() {
         <Copyright />
       </Box>
     </Container>
+    </div>
   );
 }

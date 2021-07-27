@@ -39,3 +39,8 @@
     font-weight: 600;
     padding: 0 10px;
 }
+.right__menu >p:hover{
+    cursor: pointer;
+    background-color: lightgray;
+    border-radius: 10%;
+}
