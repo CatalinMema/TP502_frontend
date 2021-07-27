@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -8,6 +8,7 @@ import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { red } from '@material-ui/core/colors';
+import axios from 'axios';
 const useStyles = makeStyles((theme) => ({
   root: {
     marginLeft:'auto',
@@ -28,7 +29,12 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: red[500],
   },
 }));
-function CardCreated({title,ingredients,time,prep_mode}) {
+function CardCreated({id}) {
+  const [recipeData,setRecipeData] = useState([]);
+  useEffect(()=>{
+    axios.get(`/recipes/recipe/${id}`).then(res => setRecipeData(res.data))
+},[])
+console.log(recipeData)
   const classes = useStyles();
     return (
       <Card className={classes.root}>
@@ -43,12 +49,13 @@ function CardCreated({title,ingredients,time,prep_mode}) {
            
           </IconButton>
         }
-        title={title}
-        subheader={`${time} min`}
+       title={recipeData.title}
+        subheader={`${recipeData.time} min`}
       />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Ingredients: {ingredients}</Typography>
+         Ingredients: {recipeData.ingredients}
+         </Typography>
       </CardContent>
       <CardActions disableSpacing>
         <IconButton
@@ -59,7 +66,7 @@ function CardCreated({title,ingredients,time,prep_mode}) {
    
       
       <CardContent>
-      Preparation:{prep_mode}
+      Preparation:{recipeData.preparation_mode}
       </CardContent>
    
       

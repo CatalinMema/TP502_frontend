@@ -9,10 +9,7 @@ import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import Modal from '@material-ui/core/Modal';
 import CardCreated from '../CardCreated/CardCreated';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
-function rand() {
-    return Math.round(Math.random() * 20) - 10;
-  }
-  
+
   function getModalStyle() {
     const top = 50;
     const left = 50;
@@ -27,10 +24,10 @@ function rand() {
     paper: {
       position: 'absolute',
       width: 400,
-      backgroundColor: theme.palette.background.paper,
-      border: '2px solid #000',
-      boxShadow: theme.shadows[5],
-      padding: theme.spacing(2, 4, 3),
+      backgroundColor: theme.palette.grey,
+      // border: '2px solid white',
+      outline: 'none',
+      padding: theme.spacing(0, 2, 2),
     },
   }));
 
@@ -56,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 }));
  
 
-function CardRecipe({title,ingredients,time,prep_mode}) {
+function CardRecipe({id,title,time}) {
   const classes = useStyles();
   const classesModal = useStylesModal();
   const [modalStyle] = useState(getModalStyle);
@@ -93,9 +90,9 @@ function CardRecipe({title,ingredients,time,prep_mode}) {
          {/* <button onClick={handleClose}>Close</button> */}
          <div  style={{display:'flex',justifyContent:'flex-end'}}>
          <IconButton onClick={handleClose} aria-label="settings">
-            <CloseSharpIcon />
+            <CloseSharpIcon style={{backgroundColor:'white',borderRadius:'50%'}} />
           </IconButton></div>
-         <CardCreated title={title} ingredients={ingredients} time={time} prep_mode={prep_mode} />
+         <CardCreated id={id} />
     
     </div>
       </Modal>

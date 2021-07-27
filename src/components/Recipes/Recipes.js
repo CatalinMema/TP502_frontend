@@ -54,7 +54,7 @@ function Recipes() {
                     {food.map((item,index)=>(
                         
                         <Grid key={index} item xs={12} sm={6} md={4}>
-                            <CardRecipe title={item.title} ingredients={item.ingredients} time={item.time} prep_mode={item.preparation_mode} />
+                            <CardRecipe id={item._id} title={item.title} time={item.time} />
                         </Grid>
                        
                     ))}
