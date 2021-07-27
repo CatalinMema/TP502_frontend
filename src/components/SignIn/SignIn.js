@@ -17,6 +17,7 @@ import { useDispatch } from 'react-redux';
 import { setAuthTrue } from '../../features/authSlice';
 import FastfoodIcon from '@material-ui/icons/Fastfood';
 import './SignIn.css';
+import { setUserEmail } from '../../features/userEmailSlice';
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -73,6 +74,7 @@ export default function SignIn() {
         const response = await signin({email,password});
         if(response.data.auth){
             dispatch(setAuthTrue());
+            dispatch(setUserEmail(response.data.emailOfUser))
         }
         console.log(response)
     }

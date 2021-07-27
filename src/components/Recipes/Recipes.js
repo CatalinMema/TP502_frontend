@@ -7,6 +7,8 @@ import {  Button } from '@material-ui/core';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CardRecipe from '../CardRecipe/CardRecipe';
+import { useSelector } from 'react-redux';
+import { selectEmail } from '../../features/userEmailSlice';
 
 const useStyles = makeStyles({
     gridContainer: {
@@ -19,20 +21,20 @@ function Recipes() {
     const [food,setFood]=useState([]);
     const [currentPage, setCurrentPage] = useState(0);
     const classes = useStyles();
-  
+    const userEmail = useSelector(selectEmail);
     const newPage = (direction) => {
       if (direction === "next") {
         setCurrentPage(currentPage + 10);
-      } else if (direction === "previous" && currentPage !== 1) {
+      } else if (direction === "previous"  ) {
         setCurrentPage(currentPage - 10);
       }
       console.log(currentPage)
     };
     useEffect(()=>{
-        axios.get(`/recipes`).then(res => setRecipesNumber(res.data))
+        axios.get(`/recipes/${userEmail}`).then(res => setRecipesNumber(res.data))
     },[])
   useEffect(()=>{
-    axios.get(`/recipes/page/${currentPage}`).then(res => setFood(res.data));
+    axios.get(`/recipes/${userEmail}/page/${currentPage}`).then(res => setFood(res.data));
    
   },[currentPage])
   console.log(recipesNumber)

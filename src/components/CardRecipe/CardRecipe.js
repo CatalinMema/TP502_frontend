@@ -9,6 +9,8 @@ import ViewModuleIcon from '@material-ui/icons/ViewModule';
 import Modal from '@material-ui/core/Modal';
 import CardCreated from '../CardCreated/CardCreated';
 import CloseSharpIcon from '@material-ui/icons/CloseSharp';
+import { selectEmail } from '../../features/userEmailSlice';
+import { useSelector } from 'react-redux';
 
   function getModalStyle() {
     const top = 50;
@@ -58,6 +60,7 @@ function CardRecipe({id,title,time}) {
   const classesModal = useStylesModal();
   const [modalStyle] = useState(getModalStyle);
   const [open, setOpen] = useState(false);
+  const userEmail = useSelector(selectEmail);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -69,7 +72,7 @@ function CardRecipe({id,title,time}) {
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            R
+            {userEmail[0].toUpperCase()}
           </Avatar>
         }
         action={

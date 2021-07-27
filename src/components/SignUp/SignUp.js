@@ -15,6 +15,7 @@ import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setAuthTrue } from '../../features/authSlice';
+import { setUserEmail } from '../../features/userEmailSlice';
 
 function Copyright() {
   return (
@@ -67,6 +68,7 @@ const handleOnChange = (e) =>{
     }
     else{
         setPassword(e.target.value)
+        
     }
 }
 
@@ -76,6 +78,7 @@ const handleSignUp = async (e) => {
     const response = await signup({email,password});
     if(response.data.auth){
         dispatch(setAuthTrue());
+        dispatch(setUserEmail(response.data.emailOfUser))
     }
     console.log(response)
 }

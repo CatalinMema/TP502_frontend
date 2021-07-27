@@ -3,20 +3,23 @@ import {  Button } from '@material-ui/core';
 import AddIcon from "@material-ui/icons/Add"
 import axios from "axios";
 import './RecipeForm.css';
+import { useSelector } from 'react-redux';
+import { selectEmail } from '../../features/userEmailSlice';
 function RecipeForm() {
     const [inputTitle,setInputTitle]= useState('');
     const [inputIngredients,setInputIngredients]= useState('');
     const [inputTime,setInputTime]= useState('');
     const [inputPrepMode,setInputPrepMode]= useState('');
     const [responde,setResponde]= useState('');
-    
+    const userEmail = useSelector(selectEmail);
     const add = (e) => {
         e.preventDefault();
         axios.post("/recipes",{
             "title":inputTitle,
             "ingredients":inputIngredients,
             "time":inputTime,
-            "preparation_mode":inputPrepMode
+            "preparation_mode":inputPrepMode,
+            "userEmail":userEmail,
         }).then(res=>{
             console.log(res)
             if(!res.data.errors){
@@ -33,7 +36,7 @@ function RecipeForm() {
     }
     return (
         <div className="recipe__form">
-        <form>
+        {/* <form>
             <input type="text"
             placeholder="Title"
             name="title"
@@ -71,7 +74,7 @@ function RecipeForm() {
             >Add Recipe
             </Button>
             </div>
-        </form>
+        </form> */}
         <div className="respondeForAdd">
         {responde && <p>{responde}</p>}
         </div>
