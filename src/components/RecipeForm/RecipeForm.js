@@ -21,7 +21,6 @@ function RecipeForm() {
             "preparation_mode":inputPrepMode,
             "userEmail":userEmail,
         }).then(res=>{
-            console.log(res)
             if(!res.data.errors){
             setResponde(res.data);
             }

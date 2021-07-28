@@ -31,10 +31,10 @@ const useStyles = makeStyles((theme) => ({
 }));
 function CardCreated({id}) {
   const [recipeData,setRecipeData] = useState([]);
+  
   useEffect(()=>{
     axios.get(`/recipes/recipe/${id}`).then(res => setRecipeData(res.data))
 },[id])
-console.log(recipeData)
   const classes = useStyles();
     return (
       <Card className={classes.root}>

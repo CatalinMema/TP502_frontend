@@ -3,6 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setAuthToDataReceived } from '../../features/authSlice';
+import { setUserEmailToNull } from '../../features/userEmailSlice';
 import "./Header.css";
 function Header() {
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function Header() {
     const handleSignOut = async () => {
         const response = await signout();
         dispatch(setAuthToDataReceived(response.data.auth))
+        dispatch(setUserEmailToNull())
     }
     const history= useHistory();
     return (

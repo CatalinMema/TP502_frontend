@@ -28,16 +28,13 @@ function Recipes() {
       } else if (direction === "previous"  ) {
         setCurrentPage(currentPage - 10);
       }
-      console.log(currentPage)
     };
     useEffect(()=>{
         axios.get(`/recipes/${userEmail}`).then(res => setRecipesNumber(res.data))
-    },[])
+    },[userEmail])
   useEffect(()=>{
     axios.get(`/recipes/${userEmail}/page/${currentPage}`).then(res => setFood(res.data));
-   
-  },[currentPage])
-  console.log(recipesNumber)
+  },[userEmail,currentPage])
     return (
         <div className="container__recipes">
             <div className="wrap__recipies">
@@ -86,7 +83,7 @@ function Recipes() {
             </Button>
             <Button
             style={{
-                backgroundColor:'white',
+                //backgroundColor:'white',
                 marginTop:'15px',
                 marginLeft:'10px',
                 marginBottom:'15px',

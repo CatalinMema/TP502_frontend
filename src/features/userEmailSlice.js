@@ -9,8 +9,11 @@ export const userEmailSlice = createSlice({
         setUserEmail:(state,action)=>{
             state.email=action.payload;
         },
+        setUserEmailToNull:(state)=>{
+            state.email=null;
+        },
     }
 })
-export const {setUserEmail} = userEmailSlice.actions;
+export const {setUserEmail,setUserEmailToNull} = userEmailSlice.actions;
 export const selectEmail = (state)=>state.email.email;
 export default userEmailSlice.reducer;
