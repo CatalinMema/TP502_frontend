@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function CardCreated({id}) {
   const [recipeData,setRecipeData] = useState([]);
-  
+
   useEffect(()=>{
     axios.get(`/recipes/recipe/${id}`).then(res => setRecipeData(res.data))
 },[id])
@@ -57,16 +57,8 @@ function CardCreated({id}) {
          Ingredients: {recipeData.ingredients}
          </Typography>
       </CardContent>
-      <CardActions disableSpacing>
-        <IconButton
-          aria-label="show more"
-        >
-        </IconButton>
-      </CardActions>
-   
-      
       <CardContent>
-      Preparation:{recipeData.preparation_mode}
+     <strong>Preparation</strong>  {recipeData.preparation_mode}
       </CardContent>
    
       

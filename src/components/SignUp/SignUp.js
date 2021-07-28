@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import FastfoodIcon from '@material-ui/icons/Fastfood';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -14,7 +14,6 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setAuthTrue } from '../../features/authSlice';
 import { setUserEmail } from '../../features/userEmailSlice';
-
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -87,7 +86,7 @@ const handleSignUp = async (e) => {
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+          <FastfoodIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign up

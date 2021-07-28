@@ -25,5 +25,6 @@ code {
 
 body{
   width: 100%;
-  background-color: #e7d8c1 ;
+  overflow-x: hidden;
+  background-color: #e7d8c1;
 }

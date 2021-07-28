@@ -30,7 +30,6 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-      
     height: '80vh',
     display: 'flex',
     flexDirection: 'column',

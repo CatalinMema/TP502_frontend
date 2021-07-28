@@ -35,6 +35,8 @@ function Recipes() {
   useEffect(()=>{
     axios.get(`/recipes/${userEmail}/page/${currentPage}`).then(res => setFood(res.data));
   },[userEmail,currentPage])
+
+  console.log(currentPage);
     return (
         <div className="container__recipes">
             <div className="wrap__recipies">
@@ -61,8 +63,10 @@ function Recipes() {
                     ) : (
                          <h2 className="noElement">No recipes in your list! Add some!</h2>
                     )}
+
+                    
                 <div className="buttons__container">
-                <Button
+                  {currentPage >= 10 ? (<Button
             onClick={()=>newPage("previous")}
             startIcon={<NavigateBeforeIcon fontSize="large"/>}
             //className="button__page"
@@ -80,8 +84,8 @@ function Recipes() {
                 
                 }}
             >Prev recipes
-            </Button>
-            <Button
+            </Button>) : (null)}
+            {currentPage <=recipesNumber.length-10 ? (<Button
             style={{
                 //backgroundColor:'white',
                 marginTop:'15px',
@@ -99,7 +103,9 @@ function Recipes() {
             endIcon={<NavigateNextIcon fontSize="large"/>}
             className="button__page"
             >Next recipes
-            </Button>                
+            </Button>) : (null) }
+            
+                         
                 </div>
             </div>
         </div>

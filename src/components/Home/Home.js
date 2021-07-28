@@ -8,7 +8,7 @@ function Home() {
             <div className="wrap">
                 <div className="home__text">
                     <h1>Favorite recipes!</h1>
-                    <p>Make a book with all your recipies</p>
+                    <h3>Make a book with all your recipies</h3>
                 </div>
                 <div className="recipe__details">
                     <RecipeForm />
