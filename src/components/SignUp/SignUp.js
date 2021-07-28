@@ -78,7 +78,8 @@ const handleSignUp = async (e) => {
     const response = await signup({email,password});
     if(response.data.auth){
         dispatch(setAuthTrue());
-        dispatch(setUserEmail(response.data.emailOfUser))
+        if(response.data){
+        dispatch(setUserEmail(response.data.emailOfUser))}
     }
     console.log(response)
 }

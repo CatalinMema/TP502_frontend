@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -74,12 +74,14 @@ export default function SignIn() {
         const response = await signin({email,password});
         if(response.data.auth){
             dispatch(setAuthTrue());
+            
             dispatch(setUserEmail(response.data.emailOfUser))
         }
         console.log(response)
     }
+    
   const classes = useStyles();
-
+    
   return (
       <div  className="signin_page">
     <Container component="main" maxWidth="xs">

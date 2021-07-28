@@ -36,7 +36,7 @@ function RecipeForm() {
     }
     return (
         <div className="recipe__form">
-        {/* <form>
+        <form>
             <input type="text"
             placeholder="Title"
             name="title"
@@ -74,7 +74,7 @@ function RecipeForm() {
             >Add Recipe
             </Button>
             </div>
-        </form> */}
+        </form>
         <div className="respondeForAdd">
         {responde && <p>{responde}</p>}
         </div>

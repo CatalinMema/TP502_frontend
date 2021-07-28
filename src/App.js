@@ -15,21 +15,41 @@ import { useEffect } from 'react';
 import { responsiveFontSizes } from '@material-ui/core';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectAuthState, setAuthTrue } from './features/authSlice';
+import { selectEmail, setUserEmail } from './features/userEmailSlice';
 function App() { 
   const dispatch = useDispatch();
+  const emailUser= useSelector(selectEmail);
+  console.log(emailUser)
   const userIsSignIn = async () =>{
-    const response = await axios.get('/authentication/signedin');
+    const response = await axios.get(`/authentication/signedin/${emailUser}`);
     return response;
   }
   const readSession = async () =>{
     const response=await userIsSignIn();
     if(response.data.auth){
       dispatch(setAuthTrue());
+    //  dispatch(setUserEmail(response.data.emailOfUser))
     }
     console.log(response)
   }
+
+  const emailAtuh = async () =>{
+    const response = await axios.get(`/user/email`);
+    return response;
+  }
+  const readEmail = async () =>{
+    const response=await emailAtuh();
+    if(response.data.emailAuth){
+     // dispatch(setAuthTrue());
+      dispatch(setUserEmail(response.data.emailAuth))
+    }
+    console.log(response)
+  }
+
   useEffect(()=>{
     readSession();
+    readEmail();
+    //dispatch(setUserEmail("adresa@gmail"))
   },[])
   const stateOfAuth= useSelector(selectAuthState);
   return (
