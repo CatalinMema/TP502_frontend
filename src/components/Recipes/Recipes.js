@@ -85,7 +85,7 @@ function Recipes() {
                 }}
             >Prev recipes
             </Button>) : (null)}
-            {currentPage <=recipesNumber.length-10 ? (<Button
+            {currentPage <recipesNumber.length-10 ? (<Button
             style={{
                 //backgroundColor:'white',
                 marginTop:'15px',
